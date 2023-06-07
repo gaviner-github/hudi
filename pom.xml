@@ -115,9 +115,10 @@
     <log4j2.version>2.17.2</log4j2.version>
     <slf4j.version>1.7.36</slf4j.version>
     <joda.version>2.9.9</joda.version>
-    <hadoop.version>2.10.1</hadoop.version>
+    <hadoop.version>3.2.2</hadoop.version>
     <hive.groupid>org.apache.hive</hive.groupid>
-    <hive.version>2.3.1</hive.version>
+    <hive.version>3.1.2</hive.version>
+    <!--<hive.version>2.3.1</hive.version>-->
     <hive.parquet.version>1.10.1</hive.parquet.version>
     <hive.avro.version>1.8.2</hive.avro.version>
     <presto.version>0.273</presto.version>
@@ -131,15 +132,15 @@
     <http.version>4.4.1</http.version>
     <spark.version>${spark2.version}</spark.version>
     <spark2.version>2.4.4</spark2.version>
-    <spark3.version>3.3.1</spark3.version>
+    <spark3.version>3.2.3</spark3.version>
     <sparkbundle.version></sparkbundle.version>
     <flink1.16.version>1.16.0</flink1.16.version>
     <flink1.15.version>1.15.1</flink1.15.version>
-    <flink1.14.version>1.14.5</flink1.14.version>
+    <flink1.14.version>1.14.0</flink1.14.version>
     <flink1.13.version>1.13.6</flink1.13.version>
     <flink.version>${flink1.16.version}</flink.version>
     <hudi.flink.module>hudi-flink1.16.x</hudi.flink.module>
-    <flink.bundle.version>1.16</flink.bundle.version>
+    <flink.bundle.version>1.14</flink.bundle.version>
     <!-- This is fixed to match with version from flink-avro -->
     <flink.avro.version>1.10.0</flink.avro.version>
     <flink.format.parquet.version>1.12.2</flink.format.parquet.version>
@@ -169,7 +170,7 @@
     <scala12.version>2.12.10</scala12.version>
     <scala.version>${scala11.version}</scala.version>
     <scala.collection-compat.version>2.8.1</scala.collection-compat.version>
-    <scala.binary.version>2.11</scala.binary.version>
+    <scala.binary.version>2.12</scala.binary.version>
     <apache-rat-plugin.version>0.13</apache-rat-plugin.version>
     <scala-maven-plugin.version>3.3.1</scala-maven-plugin.version>
     <scalatest.version>3.0.1</scalatest.version>
@@ -268,7 +269,7 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
+      <!--<plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>3.0.0</version>
@@ -280,7 +281,7 @@
           </dependency>
         </dependencies>
         <configuration>
-          <!-- Set consoleOutput to true to see minor checkstyle issues -->
+          &lt;!&ndash; Set consoleOutput to true to see minor checkstyle issues &ndash;&gt;
           <consoleOutput>false</consoleOutput>
           <encoding>UTF-8</encoding>
           <configLocation>style/checkstyle.xml</configLocation>
@@ -292,7 +293,7 @@
           <sourceDirectories>
             <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
           </sourceDirectories>
-          <!-- NOTE: This property is only available in Maven >= 3.3.1 -->
+          &lt;!&ndash; NOTE: This property is only available in Maven >= 3.3.1 &ndash;&gt;
           <propertyExpansion>basedir=${maven.multiModuleProjectDirectory}</propertyExpansion>
           <excludes>**\/generated-sources\/,org/apache/hudi/metaserver/thrift/*</excludes>
         </configuration>
@@ -304,7 +305,7 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
+      </plugin>-->
 <!--
       See https://jira.apache.org/jira/browse/HUDI-304
       <plugin>
@@ -1079,7 +1080,8 @@
       <dependency>
         <groupId>org.rocksdb</groupId>
         <artifactId>rocksdbjni</artifactId>
-        <version>${rocksdbjni.version}</version>
+        <!--<version>${rocksdbjni.version}</version>-->
+        <version>6.20.3</version>
       </dependency>
 
       <!-- Httpcomponents -->

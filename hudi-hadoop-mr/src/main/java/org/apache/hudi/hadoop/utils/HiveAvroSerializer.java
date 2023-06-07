@@ -26,9 +26,8 @@ import org.apache.avro.generic.GenericEnumSymbol;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.avro.util.Utf8;
-import org.apache.hadoop.hive.common.type.HiveChar;
-import org.apache.hadoop.hive.common.type.HiveDecimal;
-import org.apache.hadoop.hive.common.type.HiveVarchar;
+import org.apache.hadoop.hive.common.type.*;
+import org.apache.hadoop.hive.common.type.Date;
 import org.apache.hadoop.hive.serde2.avro.AvroSerdeUtils;
 import org.apache.hadoop.hive.serde2.avro.InstanceCache;
 import org.apache.hadoop.hive.serde2.io.DateWritable;
@@ -54,12 +53,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.apache.hudi.avro.AvroSchemaUtils.resolveNullableSchema;
@@ -299,14 +293,15 @@ public class HiveAvroSerializer {
         String string = (String)fieldOI.getPrimitiveJavaObject(structFieldData);
         return new Utf8(string);
       case DATE:
-        return DateWritable.dateToDays(((DateObjectInspector)fieldOI).getPrimitiveJavaObject(structFieldData));
+        Date primitiveJavaObject = ((DateObjectInspector) fieldOI).getPrimitiveJavaObject(structFieldData);
+        return DateWritable.dateToDays(new java.sql.Date(primitiveJavaObject.toEpochMilli()));
       case TIMESTAMP:
-        Timestamp timestamp =
-            ((TimestampObjectInspector) fieldOI).getPrimitiveJavaObject(structFieldData);
-        return timestamp.getTime();
+        Timestamp timestamp = ((TimestampObjectInspector) fieldOI).getPrimitiveJavaObject(structFieldData);
+        return timestamp.toEpochMilli();
       case INT:
         if (schema.getLogicalType() != null && schema.getLogicalType().getName().equals("date")) {
-          return DateWritable.dateToDays(new WritableDateObjectInspector().getPrimitiveJavaObject(structFieldData));
+          Date primitiveJavaObject2 = ((DateObjectInspector) fieldOI).getPrimitiveJavaObject(structFieldData);
+          return DateWritable.dateToDays(new java.sql.Date(primitiveJavaObject2.toEpochMilli()));
         }
         return fieldOI.getPrimitiveJavaObject(structFieldData);
       case UNKNOWN:
